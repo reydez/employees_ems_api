@@ -3,7 +3,7 @@ const config = require("../utils/adconfig")
 const ad = new ActiveDirectory(config);
 const groupName = "appdev";
 
-exports.getIndex = (req, res) => {
+exports.getEmployee = (req, res) => {
   ad.getUsersForGroup(groupName, function (err, users) {
     if (err) {
       return res.send({ error: "ERROR: " + JSON.stringify(err) });
@@ -12,26 +12,9 @@ exports.getIndex = (req, res) => {
     if (!users) {
       return res.send({ error: "Group: " + groupName + ", not found." });
     } else {
-      return res.send({ users });
+      return res.send({ Employees: users });
     }
   });
-}
-
-
-exports.getEmployee = (req, res) => {
-  const dummyObj = {
-    employees: [
-      {
-        name: "rodrigo",
-        email: "something@gmail.com",
-      },
-      {
-        name: "Gloria",
-        email: "something@gmail.com",
-      },
-    ],
-  };
-  return res.send(dummyObj.employees);
 };
 
 exports.getEmployeeByDate = (req, res) => {
